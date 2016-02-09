@@ -40,7 +40,7 @@ class Window(qg.QMainWindow):
 
 	def closeEvent(self, event):
 		event.ignore()
-		app.quit()
+		qc.QCoreApplication.instance().quit()
 
 
 if __name__ == '__main__':
