@@ -14,7 +14,6 @@ class Widget2(qg.QWidget):
 class Widget(qg.QWidget):
 	def __init__(self, parent=None):
 		super(Widget, self).__init__()
-		Widget2.__init__(self)
 		
 		btn = qg.QPushButton(self)
 		btn.clicked.connect(self._show)
