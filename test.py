@@ -1,34 +1,41 @@
-import PyQt4.QtGui as qg
+from PyQt4 import QtGui, QtCore 
 import sys
 
 
-class Widget2(qg.QWidget):
+class Widget2(QtGui.QWidget):
 	def __init__(self, parent=None):
 		super(Widget2, self).__init__()
+		self.foo = 'jolo'
 		self._set_layout()
 
 	def _set_layout(self):
-		self.le = qg.QLineEdit(self)
-		self.le.show()
+		grid = QtGui.QGridLayout()
+		self.setLayout(grid)
+
+		self.le = QtGui.QLineEdit(self)
+		self.btn = QtGui.QPushButton('Print Entry to Terminal', self)
+		
+		grid.addWidget(self.le, 0, 0)
+		grid.addWidget(self.btn, 1, 0)
 		
 	def _show(self):
 		self.show()
 		self.activateWindow()
 
 
-class Widget(qg.QWidget):
+class Widget(QtGui.QWidget):
 	def __init__(self, parent=None):
 		super(Widget, self).__init__()
 		self.widget2 = Widget2()
 
-		btn = qg.QPushButton(self)
+		btn = QtGui.QPushButton('Open Widget2', self)
 		btn.clicked.connect(self._show)
 
 	def _show(self):
 		self.widget2._show()
 
 
-class Window(qg.QMainWindow):
+class Window(QtGui.QMainWindow):
 	def __init__(self, parent=None):
 		super(Window, self).__init__()
 		self.widget = Widget()
@@ -40,11 +47,11 @@ class Window(qg.QMainWindow):
 
 	def closeEvent(self, event):
 		event.ignore()
-		qc.QCoreApplication.instance().quit()
+		QtCore.QCoreApplication.instance().quit()
 
 
 if __name__ == '__main__':
-	app = qg.QApplication(sys.argv)
+	app = QtGui.QApplication(sys.argv)
 	window = Window()
 	window.show()
 	sys.exit(app.exec_())
